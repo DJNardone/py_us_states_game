@@ -15,6 +15,9 @@ while len(all_states) < 50:
     guess_state = screen.textinput(title=f"{len(all_states)}/50 States Correct",
                                    prompt="What's another State name?").title()
     if guess_state == "Exit":
+        remaining_states = [i for i in state_list if i not in all_states]
+        remaining_data = pandas.DataFrame(remaining_states)
+        remaining_data.to_csv("states_to_learn.csv")
         break
     if guess_state in state_list:
         all_states.append(guess_state)
@@ -25,10 +28,7 @@ while len(all_states) < 50:
         st.goto(good_state.x.iloc[0], good_state.y.iloc[0])
         st.write(guess_state)
 
-remaining_states = [i for i in state_list if i not in all_states]
-remaining_data = pandas.DataFrame(remaining_states)
-remaining_data.to_csv("states_to_learn.csv")
-# print(remaining_states)
+
 
 # def mouse_click_cor(x, y):
 #     print(x, y)
